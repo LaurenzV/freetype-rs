@@ -146,6 +146,10 @@ impl<'a> Iterator for ContourIterator<'a> {
             None
         } else {
             unsafe {
+                if self.contour_end_idx.is_null() {
+                    return None;
+                }
+
                 let contour_end = *self.contour_end_idx;
                 let curves = CurveIterator::from_raw(
                     self.outline,
